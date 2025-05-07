@@ -21,7 +21,7 @@ public class SessionRegistry {
     return sessionIdToNickName.get(sessionId);
   }
 
-  // 방 ID 조회
+  // 방 Id 조회
   public String getRoomId(String sessionId) {
     return sessionIdToRoom.get(sessionId);
   }
@@ -29,7 +29,7 @@ public class SessionRegistry {
   // 현재 방 인원 수 카운트
   public int countByRoom(String roomId) {
     int count = 0;
-    for (String id : sessionIdToNickName.values()) {
+    for (String id : sessionIdToRoom.values()) {
       if (id.equals(roomId)) {
         count++;
       }

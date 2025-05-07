@@ -1,4 +1,4 @@
-package com.example.webSocketGame.config;
+package com.example.webSocketGame.session;
 
 import com.example.webSocketGame.session.SessionRegistry;
 import lombok.RequiredArgsConstructor;
@@ -23,17 +23,17 @@ public class WebSocketEventListener {
     String nickname = sessionRegistry.getNickName(sessionId);
     String roomId = sessionRegistry.getRoomId(sessionId);
 
-    // 세션 제거
+    // 1. 세션 제거
     sessionRegistry.unregister(sessionId);
 
-    // 퇴장 메시지
+    // 2. 현재 인원 수 전송
+    int count = sessionRegistry.countByRoom(roomId);
+    template.convertAndSend("/sub/count/" + roomId, count);
+
+    // 3. 퇴장 메시지
     if (nickname != null && roomId != null) {
       String leaveMsg = nickname + "님이 퇴장하셨습니다.";
-      template.convertAndSend("/topic/notice/" + roomId, leaveMsg);
-
-      // 인원 수 갱신
-      int count = sessionRegistry.countByRoom(roomId);
-      template.convertAndSend("/topic/count/" + roomId, count);
+      template.convertAndSend("/sub/notice/" + roomId, leaveMsg);
     }
   }
 }

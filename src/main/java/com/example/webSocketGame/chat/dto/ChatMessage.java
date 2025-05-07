@@ -1,4 +1,4 @@
-package com.example.webSocketGame.dto;
+package com.example.webSocketGame.chat.dto;
 
 import lombok.Getter;
 import lombok.Setter;

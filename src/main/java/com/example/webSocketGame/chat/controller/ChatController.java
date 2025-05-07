@@ -1,8 +1,7 @@
-package com.example.webSocketGame.controller;
+package com.example.webSocketGame.chat.controller;
 
-import com.example.webSocketGame.dto.ChatMessage;
+import com.example.webSocketGame.chat.dto.ChatMessage;
 import com.example.webSocketGame.session.SessionRegistry;
-import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -20,12 +19,12 @@ public class ChatController {
 
 
   @MessageMapping("/chat")
-  @SendTo("/topic/join")
-  public void handleChar(@Payload ChatMessage msg, StompHeaderAccessor accessor) {
+  @SendTo("/sub/join")
+  public void handleChat(@Payload ChatMessage msg, StompHeaderAccessor accessor) {
     String sessionId = accessor.getSessionId();
     String nickname = sessionRegistry.getNickName(sessionId);
 
     msg.setSender(nickname);
-    template.convertAndSend("/topic/chat/" + msg.getRoomId(), msg);
+    template.convertAndSend("/sub/chat/" + msg.getRoomId(), msg);
   }
 }

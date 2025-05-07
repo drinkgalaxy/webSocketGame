@@ -1,4 +1,4 @@
-package com.example.webSocketGame.dto;
+package com.example.webSocketGame.waitingRoom.dto;
 
 import lombok.Getter;
 import lombok.Setter;

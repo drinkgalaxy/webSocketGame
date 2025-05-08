@@ -7,17 +7,38 @@
   <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
   <script src="/js/waitingRoom.js"></script>
   <script src="/js/chat.js"></script>
+  <style>
+    #layout {
+      display: flex;
+      justify-content: space-between;
+    }
+    #chatArea {
+      width: 70%;
+    }
+    #infoArea {
+      width: 28%;
+      border-left: 1px solid #ccc;
+      padding-left: 10px;
+    }
+  </style>
 </head>
 <body>
+
 <h2>게임 대기실</h2>
 <p id="playerCount">현재 인원: 0명</p>
-<input type="text" id="nicknameInput" placeholder="닉네임 입력" />
-<button onclick="connectWebSocket(document.getElementById('nicknameInput').value)">입장</button>
 
-<div id="chatArea" style="margin-top: 20px;">
-  <input type="text" id="msg" placeholder="채팅 입력" />
-  <button onclick="sendMessage()">전송</button>
-  <div id="chatBox"></div>
+<div id="layout">
+  <div id="chatArea">
+    <input type="text" id="msg" placeholder="채팅 입력" />
+    <button onclick="sendMessage()">전송</button>
+    <div id="chatBox"></div>
+  </div>
+
+  <div id="infoArea">
+    <p><strong>방장:</strong> <span id="leaderName">없음</span></p>
+    <p><strong>참가자 목록:</strong></p>
+    <ul id="playerList"></ul>
+  </div>
 </div>
 
 </body>

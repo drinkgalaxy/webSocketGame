@@ -34,6 +34,8 @@ public class WebSocketEventListener {
     if (nickname != null && roomId != null) {
       String leaveMsg = nickname + "님이 퇴장하셨습니다.";
       template.convertAndSend("/sub/notice/" + roomId, leaveMsg);
+      // 4. 참가자 목록, 리더 갱신
+      sessionRegistry.broadcastMembers(roomId);
     }
   }
 }

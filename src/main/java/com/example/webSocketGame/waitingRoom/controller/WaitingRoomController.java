@@ -2,6 +2,9 @@ package com.example.webSocketGame.waitingRoom.controller;
 
 import com.example.webSocketGame.waitingRoom.dto.JoinMessage;
 import com.example.webSocketGame.session.SessionRegistry;
+import com.example.webSocketGame.waitingRoom.entity.WaitingRoom;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,8 +24,6 @@ public class WaitingRoomController {
     String sessionId = accessor.getSessionId();
     sessionRegistry.register(sessionId, msg.getNickname(), msg.getRoomId());
 
-    System.out.println("닉네임 등록됨: "+ msg.getNickname());
-
     // 1. 입장 메시지 생성
     String roomId = msg.getRoomId();
     String notice = msg.getNickname() + "님이 입장하셨습니다.";
@@ -32,6 +33,10 @@ public class WaitingRoomController {
     int count = sessionRegistry.countByRoom(roomId);
     template.convertAndSend("/sub/count/" + roomId, count);
 
+    // 3. 참가자 목록, 리더 갱신
+    sessionRegistry.broadcastMembers(msg.getRoomId());
   }
+
+
 
 }

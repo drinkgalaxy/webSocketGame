@@ -23,7 +23,6 @@
   </style>
 </head>
 <body>
-
 <h2>게임 대기실</h2>
 <p id="playerCount">현재 인원: 0명</p>
 
@@ -38,8 +37,18 @@
     <p><strong>방장:</strong> <span id="leaderName">없음</span></p>
     <p><strong>참가자 목록:</strong></p>
     <ul id="playerList"></ul>
+
+    <!-- 라운드 선택 -->
+    <div id="roundControl" style="margin-top:20px; display:none;">
+      <label for="roundSelect"><strong>라운드 수 선택</strong></label><br>
+      <select id="roundSelect" onchange="handleRoundSelection()">
+        <option value="">-- 선택하세요 --</option>
+      </select><br><br>
+      <button id="startBtn" onclick="startGame()" disabled>게임 시작</button>
+    </div>
   </div>
 </div>
+
 
 </body>
 </html>
